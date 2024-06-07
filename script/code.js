@@ -1,59 +1,49 @@
-let tasks = [];
+// Selecting elements
+const input = document.getElementById('input1');
+const addButton = document.getElementById('addButton');
+const taskList = document.getElementById('tasks');
+const sortButton = document.getElementById('sortButton');
 
-function adding() {
-  let taskList = {
-    name: document.getElementById("tasks").value,
-    completed: false
-  };
-  tasks.push(taskList);
-  let toDoList = document.querySelector("#results");
-  toDoList.innerHTML = "";
-  tasks.forEach((data) => {
-    toDoList.innerHTML += ` 
-      <input type="checkbox" onclick="toggleCompleted('${data.name}')">
-      <p>${data.name}</p>
-      <span class="close" onclick="removeTask('${data.name}')">x</span>
-    `;
-  });
-  stored();
+// Adding task function
+function addTask() {
+    const taskText = input.value.trim();
+
+    if (taskText !== '') {
+        const taskItem = document.createElement('li');
+        taskItem.classList.add('task');
+        taskItem.innerHTML = `
+            <input type="checkbox">
+            <p>${taskText}</p>
+            <button class="deleteButton">❌</button>
+        `;
+        taskList.appendChild(taskItem);
+        input.value = '';
+
+        // Adding event listener for delete button
+        const deleteButton = taskItem.querySelector('.deleteButton');
+        deleteButton.addEventListener('click', () => {
+            taskList.removeChild(taskItem);
+        });
+    }
 }
 
-function stored() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-function dataRefresh() {
-  const storedTasks = localStorage.getItem("tasks");
-  if (storedTasks) {
-    tasks = JSON.parse(storedTasks);
-    const toDoList = document.querySelector("#results");
-    toDoList.innerHTML = "";
-    tasks.forEach((data) => {
-      toDoList.innerHTML += ` 
-        <input type="checkbox" onclick="toggleCompleted('${data.name}')">
-        <p>${data.name}</p>
-        <span class="close" onclick="removeTask('${data.name}')">x</span>
-      `;
+// Sorting tasks function
+function sortTasks() {
+    const tasks = [...taskList.children];
+    tasks.sort((a, b) => {
+        return a.querySelector('p').textContent.localeCompare(b.querySelector('p').textContent);
     });
-  }
+    taskList.innerHTML = '';
+    tasks.forEach(task => {
+        taskList.appendChild(task);
+    });
 }
 
-function toggleCompleted(name) {
-  const task = tasks.find((t) => t.name === name);
-  if (task) {
-    task.completed = !task.completed;
-    stored();
-    dataRefresh();
-  }
-}
-
-function removeTask(name) {
-  tasks = tasks.filter((t) => t.name !== name);
-  stored();
-  dataRefresh();
-}
-
-function sorting() {
-  tasks.sort((a, b) => a.name.localeCompare(b.name));
-  dataRefresh();
-}
+// Adding event listeners
+addButton.addEventListener('click', addTask);
+input.addEventListener('keypress', event => {
+    if (event.key === 'Enter') {
+        addTask();
+    }
+});
+sortButton.addEventListener('click', sortTasks);
