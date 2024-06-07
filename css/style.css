@@ -35,26 +35,23 @@ h1 {
 /* Container styles */
 #container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
 }
 
 /* Input styles */
 #input1 {
-    width: 100%; /* Take full width */
+    flex: 1;
     padding: 10px;
     border: 1px solid black;
     background-color: #fff;
     font-size: 18px;
     border-radius: 10px;
-    margin-bottom: 10px; /* Separate from next element */
     outline: none;
 }
 
 /* Add button styles */
 #addButton, #sortButton {
-    width: 100%; /* Take full width */
     padding: 10px 20px;
     border: 1px solid black;
     background-color: lightblue;
@@ -62,7 +59,6 @@ h1 {
     cursor: pointer;
     border-radius: 10px;
     font-size: 18px;
-    margin-bottom: 10px;
 }
 
 #addButton:hover, #sortButton:hover {
@@ -73,7 +69,6 @@ h1 {
 #tasks {
     list-style: none;
     padding: 0;
-    width: 100%; 
 }
 
 .task {
@@ -104,16 +99,33 @@ h1 {
     color: red;
 }
 
-@media screen and (max-width: 430px) {
-    section {
-        padding: 10px; 
+/* Responsive adjustments */
+@media screen and (max-width: 700px) {
+    body {
+        max-width: 100%;
     }
-}
 
-@media screen and (max-width: 370px) {
-    #container {
-        width: 80%;
-        margin: auto;
-        height: 80vh;
+    section {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    #input1 {
+        font-size: 16px;
+    }
+
+    #addButton, #sortButton {
+        font-size: 16px;
+    }
+
+    .task {
+        padding: 8px;
+    }
+
+    .deleteButton {
+        font-size: 16px;
     }
 }
