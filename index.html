@@ -2,16 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Linking CSS -->
     <link rel="stylesheet" href="./css/style.css">
-    <title>To Do List</title>
+    <title>Creative To-Do List</title>
 </head>
 <body>
-    <h1>To-do List</h1>
-    <div class="list"></div>
-    <button onclick="sorting()">sort</button><input type="text" id="tasks"><button onclick="adding()">Add</button>
-    <div id="results"></div>
+    <section>
+        <h1>To Do List</h1>
+    
+        <div id="container">
+            <button id="sortButton" data-sort>Sort</button>
+            <input type="text" id="input1" placeholder="Enter Task">
+            <button id="addButton" data-add>Add</button>
+        </div>
+        <ul id="tasks"></ul>
+    </section>
+    
+    <!-- Linking JavaScript -->
     <script src="./script/code.js"></script>
 </body>
 </html>
